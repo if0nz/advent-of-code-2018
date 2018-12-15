@@ -6,8 +6,8 @@ public class Coord {
 	public int y;
 	public Coord(String x, String y) {
 		super();
-		this.x = Integer.valueOf(x);
-		this.y = Integer.valueOf(y);
+		this.x = Integer.valueOf(x.trim());
+		this.y = Integer.valueOf(y.trim());
 	}
 	@Override
 	public int hashCode() {
