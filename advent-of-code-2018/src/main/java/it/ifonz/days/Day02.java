@@ -32,20 +32,12 @@ public class Day02 {
 	public static void part2() throws URISyntaxException, IOException {
 		var ids = FileReader.readLines("/d02.txt");
 		StringBuilder s = new StringBuilder();
-		int size = ids.size();
-		IntStream.range(0, size).forEach(i -> {
-			IntStream.range(i+1, size).forEach(j -> {
-				var id_i = ids.get(i);
-				var id_j = ids.get(j);
-				if (stringDistance(id_i,id_j) == 1) {
-					IntStream.range(0, id_i.length()).forEach(k -> {
-						char char_k = id_i.charAt(k);
-						if (char_k == id_j.charAt(k)) 
-							s.append((char)char_k);
-					});
-				}
-			});
-		});
+		ids.stream().forEach(s1 -> ids.stream()
+				.filter(s2 -> ids.indexOf(s2) > ids.indexOf(s1) && 1 == stringDistance(s1, s2))
+				.forEach(s2 -> IntStream.range(0, s1.length())
+					.filter(k -> s1.charAt(k) == s2.charAt(k)).forEach(c -> s.append(s1.charAt(c)))
+				)
+			);
 		System.out.println(s.toString());
 	}
 	

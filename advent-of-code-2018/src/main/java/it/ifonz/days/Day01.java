@@ -26,12 +26,12 @@ public class Day01 {
 		frequencies.add(0L);
 		var currentFrequency = 0L;
 		boolean twice = false;
+		int i = 0;
+		int size = changes.size();
 		while (!twice) {
-			int i=0;
-			do {
-				currentFrequency+=Long.valueOf(changes.get(i));
-				twice = !frequencies.add(currentFrequency);
-			} while (++i<changes.size() && !twice);
+			currentFrequency+=Long.valueOf(changes.get(i));
+			twice = !frequencies.add(currentFrequency);
+			i = (i+1)%size;
 		}
 		
 		System.out.println(currentFrequency);

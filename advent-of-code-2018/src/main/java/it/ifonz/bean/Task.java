@@ -22,7 +22,9 @@ public class Task {
 		requiredTime = 60 + label.charAt(0)-64;
 		timeElapsed = 0;
 	}
-
+	
+	public static Task NULL = new Task(" ");
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

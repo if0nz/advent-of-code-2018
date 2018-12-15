@@ -32,10 +32,8 @@ public class Day07 {
 				}
 			}
 			execution.append(currentNode.label);
-			currentNode.childs.stream().forEach(n -> {
-				if (!queue.contains(n) && !n.finished) queue.add(n);
-			});
 			currentNode.finished = true;
+			processingLater.addAll(currentNode.childs);
 			processingLater.forEach(n -> {
 				if (!queue.contains(n) && !n.finished) queue.add(n);
 			});
@@ -70,16 +68,16 @@ public class Day07 {
 				currentNode.finished = true;
 				int timeElapsed = currentNode.requiredTime - currentNode.timeElapsed;
 				totalTimeElapsed+=timeElapsed;
-				Arrays.stream(workers).forEach(w -> {
-					if (w != null) w.timeElapsed+=timeElapsed;
+				Arrays.stream(workers).filter(w -> w!= null).forEach(w -> {
+					w.timeElapsed+=timeElapsed;
 				});
 				currentNode.childs.stream().forEach(n -> {
 					if (!queue.contains(n) && !n.finished) queue.add(n);
 				});
-			} else {
-				int i=-1;
-				while (i < 4 && workers[++i] != null) {}
-				if (i < 5) {
+			}
+			if (!currentNode.finished) {
+				int i=Arrays.asList(workers).indexOf(null);
+				if (i > -1) {
 					workers[i] = currentNode;
 					currentNode.childs.stream().forEach(n -> {
 						if (!queue.contains(n) && !n.finished) queue.add(n);
